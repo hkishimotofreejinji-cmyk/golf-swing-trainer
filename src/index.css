@@ -1,0 +1,91 @@
+:root {
+  /* Dark is the app's native identity — not a media-query fallback */
+  --bg: #0a0b0a;
+  --bg-elevated: #101210;
+  --surface: #161815;
+  --surface-2: #1e211d;
+  --text: #f3f6f1;
+  --text-muted: #8d968e;
+  --text-faint: #5d655e;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --primary: #c8ff4d;
+  --primary-strong: #d9ff7a;
+  --on-primary: #0a0b0a;
+  --secondary: #2e8b57;
+
+  --good: #c8ff4d;
+  --warn: #ffb020;
+  --bad: #ff5c5c;
+  --danger: #ff5c5c;
+
+  --shadow: rgba(0, 0, 0, 0.5) 0 8px 24px -8px;
+  --glow: 0 0 0 rgba(200, 255, 77, 0);
+
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Consolas, monospace;
+
+  font: 16px/1.5 var(--sans);
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Opt-in light variant, kept for completeness — dark remains the default identity */
+:root[data-theme='light'] {
+  --bg: #f4f7f4;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #eef1ec;
+  --text: #16211a;
+  --text-muted: #5b6b60;
+  --text-faint: #93a099;
+  --border: #e2e7e2;
+  --border-strong: #c9d1c8;
+  --primary: #1b6b3a;
+  --primary-strong: #14522c;
+  --on-primary: #ffffff;
+  --good: #1b8a4a;
+  --warn: #b5720f;
+  --bad: #c0392b;
+  --danger: #c0392b;
+  --shadow: rgba(15, 40, 25, 0.1) 0 8px 24px -8px;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+input {
+  color: var(--text);
+  accent-color: var(--primary);
+}
+
+input::placeholder {
+  color: var(--text-faint);
+}
