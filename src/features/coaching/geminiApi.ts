@@ -4,9 +4,10 @@ import type { CoachingFeedback, SwingSession } from '../../types'
 import type { CoachingProfile } from './profile'
 import { getTagLabel } from '../knowledge/constants'
 
-// Free-tier eligible at time of writing. If this model name 404s, check
-// https://ai.google.dev/gemini-api/docs/models for the current "flash" model.
-const MODEL = 'gemini-2.0-flash'
+// Google periodically retires older models from the free tier. If this model
+// returns a 429 with limit: 0, check https://aistudio.google.com/rate-limit
+// (while logged in) for which model currently shows a non-zero free quota.
+const MODEL = 'gemini-2.5-flash'
 
 // What a low score means for each metric key, so the model can interpret raw
 // numbers correctly without guessing at our internal scoring conventions.
