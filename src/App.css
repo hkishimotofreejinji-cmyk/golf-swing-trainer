@@ -12,7 +12,7 @@
 
 .app-main {
   flex: 1;
-  padding: 24px 16px 96px;
+  padding: calc(24px + env(safe-area-inset-top)) 16px 96px;
   overflow-y: auto;
 }
 
