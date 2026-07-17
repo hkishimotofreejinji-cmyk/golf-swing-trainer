@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../db'
 import type { RoundScore, SwingSession } from '../types'
-import ScoreGauge from '../components/ScoreGauge'
+import ScoreDial from '../components/ScoreDial'
+import { IconAim, IconRecord } from '../components/icons'
 
 export default function Home() {
   const [latestSwing, setLatestSwing] = useState<SwingSession | null>(null)
@@ -18,39 +19,46 @@ export default function Home() {
 
   return (
     <div>
-      <h1 className="page-title">⛳ ゴルフスイングトレーナー</h1>
+      <div className="wordmark">
+        <IconAim />
+        <span>Swing Calibration</span>
+      </div>
+      <h1 className="page-title">おかえりなさい</h1>
       <p className="page-subtitle">100切りに向けて今日も練習しましょう</p>
 
-      <div className="stat-row" style={{ marginBottom: 16 }}>
-        <div className="stat-box">
-          <div className="stat-value">{average ?? '-'}</div>
-          <div className="stat-label">アベレージ</div>
-        </div>
-        <div className="stat-box">
-          <div className="stat-value">{last ?? '-'}</div>
-          <div className="stat-label">前回スコア</div>
-        </div>
-      </div>
-
-      <Link to="/record" className="btn btn-primary" style={{ marginBottom: 20 }}>
-        🎥 スイングを撮影して解析する
-      </Link>
-
-      <div className="card">
-        <h3 style={{ fontSize: 16, marginBottom: 12 }}>最新のスイングスコア</h3>
+      <div className="bracket-card">
+        <div className="bc-a" /><div className="bc-b" /><div className="bc-c" /><div className="bc-d" />
         {latestSwing ? (
           <>
-            <ScoreGauge score={latestSwing.overallScore} />
-            <Link to={`/analyze/${latestSwing.id}`} className="btn btn-secondary" style={{ marginTop: 16 }}>
+            <ScoreDial
+              score={latestSwing.overallScore}
+              label="LATEST SCORE"
+              stats={[
+                { value: average ?? '-', label: 'アベレージ' },
+                { value: last ?? '-', label: '前回スコア' },
+              ]}
+            />
+            <Link to={`/analyze/${latestSwing.id}`} className="btn btn-secondary" style={{ marginTop: 18 }}>
               詳細を見る
             </Link>
           </>
         ) : (
-          <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
-            まだ解析データがありません。最初のスイングを撮影してみましょう。
-          </p>
+          <>
+            <div style={{ display: 'flex', gap: 20, marginBottom: 4 }}>
+              <div className="dial-stat"><b>{average ?? '-'}</b><small>アベレージ</small></div>
+              <div className="dial-stat"><b>{last ?? '-'}</b><small>前回スコア</small></div>
+            </div>
+            <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: 13, marginTop: 14 }}>
+              まだ解析データがありません。最初のスイングを撮影してみましょう。
+            </p>
+          </>
         )}
       </div>
+
+      <Link to="/record" className="btn btn-primary">
+        <IconRecord width={17} height={17} />
+        スイングを撮影して解析する
+      </Link>
     </div>
   )
 }

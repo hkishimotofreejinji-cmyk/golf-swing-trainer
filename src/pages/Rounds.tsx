@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { db } from '../db'
 import type { RoundScore } from '../types'
+import { IconPending } from '../components/icons'
 
 export default function Rounds() {
   const [rounds, setRounds] = useState<RoundScore[]>([])
@@ -60,8 +61,9 @@ export default function Rounds() {
       </div>
 
       <div className="card" style={{ background: 'transparent', border: '1px dashed var(--border-strong)' }}>
-        <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
-          🔗 楽天GORA連携は準備中です。現在はラウンド結果を手動で記録してください。
+        <p style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 13, color: 'var(--text-muted)' }}>
+          <IconPending width={14} height={14} style={{ flexShrink: 0, marginTop: 2 }} />
+          楽天GORA連携は準備中です。現在はラウンド結果を手動で記録してください。
         </p>
       </div>
 

@@ -62,7 +62,7 @@ const CLUB_PROFILES: Record<ClubType, ClubProfile> = {
   iron: { headImpactPenalty: 240, earlyExtensionPenalty: 240, xFactorGain: 420, transitionPauseGain: 140 },
 }
 
-const PHASE = {
+export const PHASE = {
   address: 'Ⅰ. アドレス・バックスイング',
   top: 'Ⅱ. トップ・切り返し',
   impact: 'Ⅲ. ダウンスイング・インパクト',

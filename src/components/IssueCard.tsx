@@ -3,6 +3,7 @@ import type { SwingIssue, KnowledgeEntry } from '../types'
 import { searchYoutubeVideos, type YoutubeVideo } from '../features/youtube/youtubeApi'
 import { getYoutubeApiKey, db } from '../db'
 import { PLATFORM_ICON } from '../features/knowledge/constants'
+import { IconTarget, IconChecklist, IconCompass, IconAlert, IconKnowledge } from './icons'
 
 export default function IssueCard({ issue }: { issue: SwingIssue }) {
   const [videos, setVideos] = useState<YoutubeVideo[] | null>(null)
@@ -21,20 +22,22 @@ export default function IssueCard({ issue }: { issue: SwingIssue }) {
     db.knowledgeEntries.where('tags').equals(issue.key).toArray().then(setKnowledge)
   }, [issue.key])
 
-  const ICON =
-    issue.source === 'focus' ? '🎯' : issue.source === 'selfcheck' ? '📝' : issue.tier === 'reference' ? '🧭' : '⚠️'
+  const Icon =
+    issue.source === 'focus' ? IconTarget : issue.source === 'selfcheck' ? IconChecklist : issue.tier === 'reference' ? IconCompass : IconAlert
+  const iconColor =
+    issue.source === 'focus' ? 'var(--primary)' : issue.tier === 'reference' ? 'var(--text-muted)' : 'var(--warn)'
 
   return (
     <div className="card">
-      <h3 style={{ fontSize: 16, marginBottom: 6 }}>
-        {ICON} {issue.title}
+      <h3 style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 16, marginBottom: 6 }}>
+        <Icon width={16} height={16} style={{ color: iconColor, flexShrink: 0 }} /> {issue.title}
       </h3>
       <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 12 }}>{issue.advice}</p>
 
       {knowledge.length > 0 && (
         <div style={{ marginBottom: 14 }}>
-          <p style={{ fontSize: 12, color: 'var(--primary)', fontWeight: 700, marginBottom: 8 }}>
-            📚 あなたが保存したナレッジ
+          <p style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--primary)', fontWeight: 700, marginBottom: 8 }}>
+            <IconKnowledge width={13} height={13} /> あなたが保存したナレッジ
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {knowledge.map((k) => (

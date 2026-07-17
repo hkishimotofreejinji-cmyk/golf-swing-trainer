@@ -25,6 +25,14 @@
 
   --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, 'SF Mono', Consolas, monospace;
+  --serif: 'Hiragino Mincho ProN', 'Yu Mincho', ui-serif, Georgia, serif;
+
+  /* CALIBRATION: measurement-data cards get a bracket/telemetry treatment,
+     derived from --primary/--text via color-mix so they track the theme
+     instead of needing separate dark/light values. */
+  --accent-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  --accent-line: color-mix(in srgb, var(--primary) 45%, transparent);
+  --ring-track: color-mix(in srgb, var(--text) 10%, transparent);
 
   font: 16px/1.5 var(--sans);
   color-scheme: dark;

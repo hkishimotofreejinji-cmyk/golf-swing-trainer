@@ -31,6 +31,21 @@
   overflow-y: auto;
 }
 
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.wordmark svg { width: 16px; height: 16px; color: var(--primary); }
+.wordmark span {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
 .page-title {
   font-size: 24px;
   font-weight: 800;
@@ -149,4 +164,267 @@
 
 .input::-webkit-calendar-picker-indicator {
   filter: invert(1) opacity(0.6);
+}
+
+/* ==================== CALIBRATION: measurement UI ====================
+   Data/telemetry surfaces (scores, metrics, charts) get a "calibration
+   bracket" card with corner marks, distinct from the soft rounded .card
+   used for forms and browsed content. Keeps the machine/human contrast
+   the coaching feature is built on legible in the UI itself. */
+
+.bracket-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.bracket-card .bc-a,
+.bracket-card .bc-b {
+  position: absolute;
+  top: -1px;
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid var(--accent-line);
+  pointer-events: none;
+}
+.bracket-card .bc-a { left: -1px; border-left: 1.5px solid var(--accent-line); }
+.bracket-card .bc-b { right: -1px; border-right: 1.5px solid var(--accent-line); }
+.bracket-card .bc-c,
+.bracket-card .bc-d {
+  position: absolute;
+  bottom: -1px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1.5px solid var(--accent-line);
+  pointer-events: none;
+}
+.bracket-card .bc-c { left: -1px; border-left: 1.5px solid var(--accent-line); }
+.bracket-card .bc-d { right: -1px; border-right: 1.5px solid var(--accent-line); }
+
+.bracket-eyebrow {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin-bottom: 10px;
+}
+
+/* ---- score dial ---- */
+.dial-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dial-svg-box {
+  position: relative;
+  flex: 0 0 auto;
+}
+.dial-svg-box svg { position: absolute; inset: 0; }
+.dial-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dial-score {
+  font-family: var(--mono);
+  font-size: 34px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.dial-score span { font-size: 13px; color: var(--text-faint); font-weight: 500; margin-left: 1px; }
+.dial-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.dial-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 14px;
+  min-width: 0;
+}
+.dial-stat b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.dial-stat small {
+  font-size: 10px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dial-arc-track { fill: none; stroke: var(--ring-track); stroke-width: 12; }
+.dial-arc-progress {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+  animation: dial-draw 1.15s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+}
+@keyframes dial-draw {
+  from { stroke-dashoffset: var(--dial-offset, 0); }
+  to { stroke-dashoffset: 0; }
+}
+.dial-tick { stroke: var(--text-faint); stroke-width: 1.4; opacity: 0.5; }
+
+/* ---- phase rail ---- */
+.phase-rail {
+  display: flex;
+  border: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+.phase-step {
+  flex: 1;
+  text-align: center;
+  padding: 9px 2px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: var(--text-faint);
+  border-right: 1px solid var(--border);
+}
+.phase-step:last-child { border-right: none; }
+.phase-step b { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 2px; }
+.phase-step.active { color: var(--primary); background: var(--accent-soft); }
+.phase-step.active b { color: var(--primary); }
+
+/* ---- telemetry rows ---- */
+.tele-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 28px 1fr auto 14px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 2px;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tele-row:last-of-type { border-bottom: none; }
+.tele-row:focus-visible { outline: 1.5px solid var(--primary); outline-offset: 2px; }
+
+.tele-ring {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: conic-gradient(var(--ring-color, var(--primary)) calc(var(--pct) * 1%), var(--ring-track) 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tele-ring::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+.tele-label { font-size: 13px; min-width: 0; }
+.tele-label small { display: block; font-size: 10.5px; color: var(--text-faint); margin-top: 1px; }
+.tele-score {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ring-color, var(--text));
+}
+.tele-chev { width: 10px; height: 10px; color: var(--text-faint); transition: transform 0.2s ease; flex-shrink: 0; }
+.tele-row[aria-expanded='true'] .tele-chev { transform: rotate(90deg); }
+
+.tele-detail {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+.tele-detail > div { overflow: hidden; }
+.tele-row[aria-expanded='true'] + .tele-detail { grid-template-rows: 1fr; }
+.tele-detail p {
+  margin: 8px 0 4px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  padding-left: 38px;
+}
+
+/* ---- radar chart ---- */
+.radar-svg { width: 100%; height: auto; display: block; }
+.radar-grid { fill: none; stroke: var(--border); }
+.radar-axis { stroke: var(--border); stroke-width: 1; }
+.radar-fill { fill: color-mix(in srgb, var(--primary) 14%, transparent); stroke: var(--primary); stroke-width: 1.5; }
+.radar-label { font-family: var(--mono); font-size: 8.5px; fill: var(--text-faint); }
+
+/* ---- coach note (deliberately soft/serif, contrasting the bracket cards) ---- */
+.coach-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.coach-quote {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.coach-quote::before {
+  content: '「';
+  color: var(--primary);
+  font-size: 20px;
+  line-height: 0;
+  vertical-align: -3px;
+  margin-right: 1px;
+}
+.coach-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.coach-tag {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--text-faint);
+  border: 1px solid var(--border-strong);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.coach-row { font-size: 13px; line-height: 1.75; margin-bottom: 6px; color: var(--text-muted); }
+.coach-row b { color: var(--text); font-weight: 600; }
+.coach-drill {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-strong);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+}
+.coach-drill svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dial-arc-progress { animation: none; stroke-dashoffset: 0; }
 }

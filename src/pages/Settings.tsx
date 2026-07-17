@@ -2,6 +2,16 @@ import { useState } from 'react'
 import { getYoutubeApiKey, setYoutubeApiKey, getGeminiApiKey, setGeminiApiKey } from '../db'
 import { getCoachingProfile, setCoachingProfile } from '../features/coaching/profile'
 import { KNOWLEDGE_TAG_GROUPS } from '../features/knowledge/constants'
+import { IconCheck, IconPending } from '../components/icons'
+
+function SaveLabel({ saved, label }: { saved: boolean; label: string }) {
+  if (!saved) return <>{label}</>
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+      <IconCheck width={14} height={14} /> 保存しました
+    </span>
+  )
+}
 
 export default function Settings() {
   const [key, setKey] = useState(getYoutubeApiKey())
@@ -97,7 +107,7 @@ export default function Settings() {
           style={{ resize: 'vertical', fontFamily: 'inherit', marginBottom: 12 }}
         />
         <button className="btn btn-primary" onClick={handleProfileSave}>
-          {profileSaved ? '保存しました ✓' : 'プロフィールを保存する'}
+          <SaveLabel saved={profileSaved} label="プロフィールを保存する" />
         </button>
       </div>
 
@@ -116,7 +126,7 @@ export default function Settings() {
           style={{ marginBottom: 12 }}
         />
         <button className="btn btn-primary" onClick={handleGeminiSave}>
-          {geminiSaved ? '保存しました ✓' : '保存する'}
+          <SaveLabel saved={geminiSaved} label="保存する" />
         </button>
         <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 10 }}>
           ※ キーはこの端末のブラウザ内にのみ保存されます。解析結果の点数・詳細はGoogleのAPIに送信されますが、動画自体は送信されません。
@@ -138,7 +148,7 @@ export default function Settings() {
           style={{ marginBottom: 12 }}
         />
         <button className="btn btn-primary" onClick={handleSave}>
-          {saved ? '保存しました ✓' : '保存する'}
+          <SaveLabel saved={saved} label="保存する" />
         </button>
         <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 10 }}>
           ※ キーはこの端末のブラウザ内にのみ保存され、サーバーには送信されません。
@@ -146,7 +156,9 @@ export default function Settings() {
       </div>
 
       <div className="card" style={{ background: 'transparent', border: '1px dashed var(--border-strong)' }}>
-        <h3 style={{ fontSize: 16, marginBottom: 8 }}>楽天GORA連携</h3>
+        <h3 style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 16, marginBottom: 8 }}>
+          <IconPending width={15} height={15} /> 楽天GORA連携
+        </h3>
         <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
           楽天GORAには外部アプリ向けの公開APIが提供されていないため、現在は自動連携に対応していません。
           「スコア」タブから手動でラウンド結果を記録してください。

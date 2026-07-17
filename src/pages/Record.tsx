@@ -4,6 +4,7 @@ import { analyzeSwingVideo } from '../features/pose/swingAnalysis'
 import { db } from '../db'
 import { CLUB_BAG } from '../features/clubs/clubs'
 import { SELF_CHECK_ITEMS } from '../features/pose/selfChecks'
+import { IconRecord } from '../components/icons'
 
 export default function Record() {
   const navigate = useNavigate()
@@ -154,7 +155,7 @@ export default function Record() {
           onClick={() => fileInputRef.current?.click()}
           disabled={analyzing}
         >
-          📹 動画を撮影 / 選択する
+          <IconRecord width={16} height={16} /> 動画を撮影 / 選択する
         </button>
       </div>
 
