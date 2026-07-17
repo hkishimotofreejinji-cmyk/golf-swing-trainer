@@ -1,14 +1,13 @@
 .nav-bar {
-  position: sticky;
+  position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   background: var(--bg-elevated);
   border-top: 1px solid var(--border);
   padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
   max-width: 480px;
-  margin: 0 auto;
   width: 100%;
   gap: 4px;
 }
