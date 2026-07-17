@@ -4,10 +4,23 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  background:
-    radial-gradient(120% 60% at 50% 0%, rgba(200, 255, 77, 0.05), transparent 60%),
-    var(--bg);
+  background: var(--bg);
   position: relative;
+}
+
+/* Confined to a fixed-height band at the top instead of stretching the radial
+   gradient across the full (often mostly-empty) shell height — on some mobile
+   GPUs a low-opacity gradient stretched over a tall, mostly-blank area shows
+   visible banding artifacts. */
+.app-shell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 420px;
+  background: radial-gradient(120% 60% at 50% 0%, rgba(200, 255, 77, 0.05), transparent 60%);
+  pointer-events: none;
 }
 
 .app-main {
