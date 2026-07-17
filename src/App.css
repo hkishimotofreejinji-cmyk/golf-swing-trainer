@@ -1,11 +1,13 @@
 .app-shell {
-  min-height: 100svh;
+  height: 100vh;
+  height: 100dvh;
   max-width: 480px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr auto;
   background: var(--bg);
   position: relative;
+  overflow: hidden;
 }
 
 /* Confined to a fixed-height band at the top instead of stretching the radial
@@ -24,8 +26,8 @@
 }
 
 .app-main {
-  flex: 1;
-  padding: calc(24px + env(safe-area-inset-top)) 16px 96px;
+  min-height: 0;
+  padding: calc(24px + env(safe-area-inset-top)) 16px 24px;
   overflow-y: auto;
 }
 
