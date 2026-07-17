@@ -4,10 +4,11 @@ import type { CoachingFeedback, SwingSession } from '../../types'
 import type { CoachingProfile } from './profile'
 import { getTagLabel } from '../knowledge/constants'
 
-// Google periodically retires older models from the free tier. If this model
-// returns a 429 with limit: 0, check https://aistudio.google.com/rate-limit
-// (while logged in) for which model currently shows a non-zero free quota.
-const MODEL = 'gemini-2.5-flash'
+// Google periodically changes which models are available to which accounts
+// (older/legacy models can return 404 "no longer available to new users",
+// low-quota models return 429 limit:0). If this model stops working, check
+// https://ai.google.dev/gemini-api/docs/models for the current model list.
+const MODEL = 'gemini-3.5-flash'
 
 // What a low score means for each metric key, so the model can interpret raw
 // numbers correctly without guessing at our internal scoring conventions.
